@@ -14,7 +14,7 @@ function getApiKey() {
  * @param {Object} destinationContext (contains name, country, description, famousPlaces)
  * @returns {Promise<string>} Gemini response text
  */
-export async function askAuraAI(userQuestion, destinationContext = null) {
+export async function askAuraAI(userQuestion, destinationContext = null, chatHistory = []) {
   const apiKey = getApiKey();
 
   if (!apiKey || apiKey === 'MY_API_KEY') {
@@ -22,17 +22,27 @@ export async function askAuraAI(userQuestion, destinationContext = null) {
   }
 
   const systemPrompt = `You are AURA AI, an elite luxury travel concierge for AURA Journeys.
-Your role is to provide direct, comprehensive, elegant, and highly structured answers to travel questions.
+Your role is to provide accurate, elegant, direct, and concise answers to user queries.
 
-STRICT RESPONSE RULES:
-1. DO NOT include repetitive greetings, welcome phrases, or boilerplate intros like "Welcome to [Destination]..." in your response.
-2. Directly answer the user's specific question immediately in your first sentence.
-3. For packing questions ("What should I pack?"), provide a clear, structured, bulleted packing list (clothing, footwear, gear, sun protection) specifically tailored to the active destination.
-4. For timing questions ("Best time to visit?"), directly specify ideal months, peak/shoulder seasons, and weather conditions.
-5. For places questions ("Must-see places?"), directly list top landmarks, viewpoints, and experiences.
-6. For food questions ("Local food to try?"), directly list traditional dishes and regional specialties.
-7. Use bold text (**item**) for key headings/names and clear bullet points for lists.
-8. Provide complete, fully written answers. Do NOT cut off mid-sentence.`;
+CORE BEHAVIOR & INTENT DISPATCH RULES:
+1. DESTINATION & TRAVEL QUESTIONS:
+   - When the user asks about the selected destination (e.g. sights, packing, best time to visit, dining, activities) or asks implicit travel follow-ups, use the active destination context to provide tailored recommendations.
+   - For timing questions ("Best time to visit?"), specify ideal months and seasons for the active destination.
+   - For packing questions ("What should I pack?"), provide a practical bulleted packing list for the active destination.
+   - For places questions ("Must-see places?"), list top landmarks and highlights of the active destination.
+
+2. GENERAL KNOWLEDGE & FACTUAL QUESTIONS:
+   - If the user asks a general factual or non-travel question unrelated to the destination (e.g., "What is an apple?", "What is the capital of France?"), answer the question directly, accurately, and concisely.
+   - DO NOT forcibly inject or mangle the answer to connect it to the active destination (e.g., do NOT turn "What is an apple?" into "Swiss apples are used in Swiss dishes...").
+
+3. MIXED QUESTIONS:
+   - If a question contains both general knowledge and destination-specific context, answer both parts naturally and accurately.
+
+4. RESPONSE STYLE & FORMATTING RULES:
+   - NO REPETITIVE GREETINGS: DO NOT include repetitive greetings, welcome phrases, or boilerplate intros (like "Welcome to [Destination]...") in your response. Answer the question directly starting in your first sentence.
+   - CONCISE & USEFUL: Keep answers concise, clear, and structured. Use bold text (**item**) for key headings/names and clear bullet points for lists. Avoid unnecessarily long essays.
+   - NO FABRICATED FACTS: Do NOT invent facts. If information is uncertain or unavailable, clearly state so.
+   - STAY IN ROLE: Prioritize travel-related assistance, but respond to simple general knowledge questions gracefully and accurately.`;
 
   let userPrompt = '';
   if (destinationContext && destinationContext.name) {
@@ -46,14 +56,38 @@ Country / Region: ${destinationContext.country || 'Global'}
 Description: ${destinationContext.description || 'Luxury destination'}
 Famous Attractions: ${famousPlacesList || 'Local landmarks'}
 
+[CONTEXT EVALUATION GUIDELINE]
+- If the query below is travel-related, location-specific, or an implicit follow-up (e.g., "What about the best time to visit?"), answer using the active destination (${destinationContext.name}).
+- If the query is an unrelated general factual question (e.g., "What is an apple?", "What is the capital of France?"), answer it directly and accurately without forcing it into ${destinationContext.name} context.
+
 [USER QUESTION]
 ${userQuestion}`;
   } else {
     userPrompt = userQuestion;
   }
 
+  const formattedHistory = [];
+  if (Array.isArray(chatHistory) && chatHistory.length > 0) {
+    const validMessages = chatHistory.filter((msg) => msg && msg.text && !msg.id?.startsWith('welcome-'));
+    let expectedRole = 'user';
+    for (const msg of validMessages) {
+      const role = msg.sender === 'user' ? 'user' : 'model';
+      if (role === expectedRole && msg.text) {
+        formattedHistory.push({
+          role: role,
+          parts: [{ text: msg.text }]
+        });
+        expectedRole = expectedRole === 'user' ? 'model' : 'user';
+      }
+    }
+    if (formattedHistory.length > 0 && formattedHistory[formattedHistory.length - 1].role === 'user') {
+      formattedHistory.pop();
+    }
+  }
+
   const payload = {
     contents: [
+      ...formattedHistory,
       {
         role: 'user',
         parts: [{ text: userPrompt }]

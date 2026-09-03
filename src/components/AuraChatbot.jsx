@@ -81,7 +81,7 @@ export default function AuraChatbot({ destination, isOpen, onClose }) {
     setError(null);
 
     try {
-      const aiResponse = await askAuraAI(query, destination);
+      const aiResponse = await askAuraAI(query, destination, messages);
       const aiMessage = {
         id: generateUniqueId('ai'),
         sender: 'ai',
