@@ -1,0 +1,67 @@
+.experiences-section {
+  padding: 6rem 0;
+  background: var(--bg-main);
+  position: relative;
+}
+
+.popular-location-bar {
+  margin-top: 1.25rem;
+  display: flex;
+  justify-content: center;
+}
+
+.btn-popular-location {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.65rem 1.4rem;
+  border-radius: var(--radius-full);
+  background: rgba(223, 177, 112, 0.12);
+  border: 1px solid rgba(223, 177, 112, 0.35);
+  color: var(--accent-gold);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.btn-popular-location:hover:not(:disabled) {
+  background: rgba(223, 177, 112, 0.22);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(223, 177, 112, 0.2);
+}
+
+.popular-status-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 1rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-full);
+  font-size: 0.825rem;
+}
+
+.popular-status-chip.success {
+  background: rgba(52, 211, 153, 0.12);
+  border: 1px solid rgba(52, 211, 153, 0.3);
+  color: #34d399;
+}
+
+.popular-status-chip.error {
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #f87171;
+}
+
+.places-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+@media (max-width: 640px) {
+  .places-grid {
+    grid-template-columns: 1fr;
+  }
+}
