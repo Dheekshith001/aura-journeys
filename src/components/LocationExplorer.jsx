@@ -229,7 +229,7 @@ export default function LocationExplorer({ onSearchStateChange }) {
             <div className="results-header">
               <h3 className="results-title font-serif">
                 <Sparkles size={18} className="icon-gold" />
-                <span>Search Recommendations</span>
+                <span>Popular Places</span>
               </h3>
               <div className="results-header-actions">
                 <span className="results-count">{nearbyPlaces.length} places found</span>
@@ -239,7 +239,7 @@ export default function LocationExplorer({ onSearchStateChange }) {
                   className="btn-clear-location-search"
                 >
                   <X size={14} />
-                  <span>Clear & Show Popular Places</span>
+                  <span>Clear Search</span>
                 </button>
               </div>
             </div>
