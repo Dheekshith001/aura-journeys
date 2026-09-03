@@ -1,139 +1,148 @@
 # AURA Journeys — Premium AI-Powered Travel Application
 
-**AURA Journeys** is a modern, high-performance React travel application designed for modern wanderers. It delivers a luxury travel experience with real-time location awareness, live climate intelligence, dynamic high-resolution photography, interactive Google Places discovery, an AI travel assistant, and personalized day-by-day itinerary generation powered by **Google Gemini AI**.
+**AURA Journeys** is a modern React travel application designed for travelers to explore destinations, view real-time weather, discover famous and nearby places, ask an AI travel assistant questions, and generate personalized day-by-day itineraries powered by **Google Gemini AI**.
 
 ---
 
 ## 🌐 Live Demo
 
-🔗 [https://aura-journeys.vercel.app](https://aura-journeys.vercel.app)
+🔗 [Visit AURA Journeys](https://aura-journeys.vercel.app)
 
 ---
 
 ## ✨ Features
 
-- **Premium Responsive Landing Page**: Features a luxury dark navy and champagne gold design language with dynamic video background headers and glassmorphism UI elements.
-- **Looping Hero Background Video**: High-definition cinematic background video loop with instant smooth navigation.
-- **Destination Browsing**: Curated featured destinations with category badges and suggested durations.
-- **Destination Search**: Real-time keyword filtering across destination names, countries, and tags.
-- **Destination Category Filtering**: Category tabs (*Mountains*, *Historic*, *Adventure*, *Nature*, *Tropical*).
-- **Individual Destination Detail Pages**: Dedicated editorial pages for world-class destinations including the Swiss Alps, Machu Picchu, Mount Everest, Grand Canyon, Iceland, and Bora Bora.
-- **Famous Places / Landmarks**: Curated landmark cards for each active destination with high-definition imagery and descriptions.
-- **Browser Geolocation**: Real-time browser position detection to discover nearby attractions.
-- **Manual City / Location Search**: Interactive geocoding search (*e.g., Chennai, Anantapur, Paris, Tokyo*) querying live Google Places around any typed location.
-- **Google Places Nearby Attractions**: Displays nearby scenic viewpoints, historic sanctuaries, national parks, and heritage spots with ratings and reviews.
-- **Place Details Modal**: Interactive pop-up featuring full address, opening hours, contact phone numbers, user review counts, and direct Google Maps links.
-- **Real-time OpenWeather Data**: Live temperature (°C), weather status, wind speed (m/s), and humidity (%) integrated via the **OpenWeather API**.
-- **Dynamic Pexels Imagery**: Dynamic landscape photography fetched on-the-fly via the **Pexels Search API** with fallback handlers.
-- **AURA AI Destination Chatbot**: Google Gemini-powered destination concierge chatbot providing tailored packing advice, best travel seasons, landmark guides, and local culinary highlights.
-- **AI Itinerary Planner**: Bespoke day-by-day travel plan generator customized by trip duration (3, 5, 7, 10 Days), interests (Nature, Adventure, Culture, Food, Relaxation, Photography), and travel pacing (Relaxed, Balanced, Adventure).
-- **Day-by-Day Morning/Afternoon/Evening Itinerary**: Clearly formatted itineraries structured into **Morning**, **Afternoon**, and **Evening** time blocks.
-- **Loading States**: Animated spinners and feedback status badges during API fetches.
-- **Error States**: User-friendly notification cards with retry controls if network requests fail.
-- **Empty States**: Clear feedback when search terms or location queries return no matching results.
-- **Denied-Location Handling**: Graceful fallback to featured regional experiences if location access is denied.
-- **Responsive Desktop / Tablet / Mobile UI**: Optimized across all device viewports with drawer menus and floating overlays.
-- **Accessibility-Conscious Interactions**: ARIA controls, keyboard accessibility (Escape to close modals, Enter to submit forms), and clean contrast ratio.
+- **Premium Responsive Landing Page** — Luxury dark navy and champagne-gold visual design with glassmorphism UI elements.
+- **Looping Hero Background Video** — Cinematic background video creating an immersive landing experience.
+- **Destination Browsing** — Explore a curated collection of destinations with categories, ratings, and suggested durations.
+- **Destination Search** — Search destinations by name or country.
+- **Destination Category Filtering** — Filter destinations by Mountains, Historic, Adventure, Nature, and Tropical categories.
+- **Individual Destination Detail Pages** — Dedicated pages for Swiss Alps, Machu Picchu, Mount Everest, Grand Canyon, Iceland, and Bora Bora.
+- **Famous Places & Landmarks** — Each destination includes notable attractions with descriptions and imagery.
+- **Browser Geolocation** — Detect the visitor's current location when permission is granted.
+- **Manual Location Search** — Search for a city or location to discover nearby attractions.
+- **Google Places Nearby Attractions** — Dynamically retrieves nearby tourist attractions and landmarks.
+- **Place Details Modal** — Displays address, opening hours, contact information, ratings, review counts, and Google Maps links.
+- **Real-Time Weather** — Displays current temperature, weather condition, wind speed, and humidity using OpenWeather.
+- **Dynamic Pexels Imagery** — Destination and landmark images are fetched dynamically using the Pexels API.
+- **AURA AI Travel Assistant** — Gemini-powered chatbot for destination questions such as what to pack, when to visit, what to see, and local food recommendations.
+- **AI Itinerary Planner** — Generates personalized travel plans based on destination, duration, interests, and travel style.
+- **Day-by-Day Itinerary** — AI-generated plans are displayed as readable Morning, Afternoon, and Evening sections.
+- **Loading States** — User-friendly loading indicators during API requests.
+- **Error States** — Clear error messages and retry handling for failed requests.
+- **Empty States** — Helpful feedback when searches return no results.
+- **Denied-Location Handling** — Graceful fallback when the visitor does not allow location access.
+- **Responsive Design** — Optimized for desktop, tablet, and mobile devices.
+- **Accessibility-Conscious UI** — Keyboard interactions, ARIA controls, readable contrast, and accessible interactive elements.
 
 ---
 
 ## 🛠️ Tech Stack
 
-- **React** (`^19.2.8`) — UI library and component structure
-- **Vite** (`^8.2.2`) — Next-generation frontend tooling and build server
-- **JavaScript** (ES6+) — Core application logic and asynchronous fetching
-- **CSS** — Custom Vanilla CSS design system with glassmorphism utility tokens
-- **React Router** (`^7.18.3`) — Client-side routing (`/`, `/destination/:slug`)
-- **Lucide React** (`^1.39.0`) — UI icon set
-- **Oxlint** (`^1.79.0`) — Lightweight, high-speed JavaScript/JSX linter
+- **React** — Component-based user interface
+- **Vite** — Frontend build tool and development server
+- **JavaScript (ES6+)** — Application logic and API integration
+- **CSS** — Custom responsive styling and glassmorphism design
+- **React Router DOM** — Client-side routing
+- **Lucide React** — Interface icons
+- **Oxlint** — JavaScript and JSX linting
 
 ---
 
 ## 🌐 APIs Used
 
-- **Google Gemini API** (`gemini-3.5-flash` / `gemini-2.5-flash` / `gemini-3.5-flash-lite`):
-  - Powers the AURA AI destination concierge chatbot (`askAuraAI`) for real-time travel Q&A.
-  - Generates custom day-by-day travel itineraries (`generateAuraItinerary`) structured into Morning, Afternoon, and Evening activities.
-- **OpenWeather API**:
-  - Retrieves live current weather, temperature in °C, weather status, wind speed, and humidity for active destinations.
-- **Pexels API**:
-  - Dynamically fetches high-resolution landscape photography for destination hero banners and famous place cards.
-- **Google Places API (New)**:
-  - `places:searchNearby`: Discovers tourist attractions, parks, and landmarks centered at detected or searched coordinates.
-  - `places:searchText`: Geocodes typed city names into latitude/longitude coordinates.
-  - `places/{placeId}`: Fetches full place details, opening hours, contact details, and Google Maps links.
-- **Browser Geolocation API**:
-  - Captures the user's current latitude and longitude coordinates upon authorization.
+### Google Gemini API
+
+Used for:
+
+- AURA AI destination chatbot
+- Destination-related travel questions
+- Personalized AI itinerary generation
+- Morning, Afternoon, and Evening itinerary planning
+
+### OpenWeather API
+
+Used to retrieve:
+
+- Current temperature
+- Weather condition
+- Wind speed
+- Humidity
+
+### Pexels API
+
+Used to dynamically retrieve:
+
+- Destination images
+- Famous-place images
+- High-resolution travel photography
+
+### Google Places API (New)
+
+Used for:
+
+- Nearby place discovery
+- Location-based attraction search
+- City/location search
+- Place details
+- Opening hours
+- Contact information
+- Google Maps links
+
+### Browser Geolocation API
+
+Used to obtain the visitor's current latitude and longitude when location permission is granted.
 
 ---
 
 ## 🧭 How It Works
 
-1. **Explore Destinations**: Browse curated featured destinations on the main landing page.
-2. **Search / Filter Destinations**: Filter by travel categories or search by destination name.
-3. **Open Destination Details**: Click on any destination card to open its dedicated page.
-4. **View Live Weather & Destination Imagery**: See real-time weather metrics and Pexels imagery.
-5. **View Famous Places**: Inspect curated landmark highlights for the destination.
-6. **Use Current Location or Search for a City**: Authorize geolocation or search any city name in the Location Explorer.
-7. **Discover Nearby Places**: View top attractions fetched dynamically from Google Places API.
-8. **Open Place Details**: Click **"Explore"** on any place card to inspect address, hours, phone, and Google Maps links.
-9. **Ask AURA AI Questions**: Click **"Ask AURA AI"** on any destination page to open the Gemini AI chatbot and ask destination questions.
-10. **Generate a Personalized AI Itinerary**: Click **"Plan My Trip"** or **"Plan with AI"** to open the AI Itinerary Planner, customize duration, interests, and style, and receive a complete Day 1, Day 2, Day 3... Morning/Afternoon/Evening schedule.
+1. **Explore Destinations** — Browse curated destinations from the landing page.
+2. **Search and Filter** — Search destinations or filter them by travel category.
+3. **View Destination Details** — Open a dedicated destination page.
+4. **Check Live Weather** — View current weather information from OpenWeather.
+5. **Discover Famous Places** — Explore curated landmarks and attractions.
+6. **Use Location Awareness** — Allow browser location access to discover nearby places.
+7. **Search a Location Manually** — Enter a city such as Chennai, Paris, or Tokyo.
+8. **Explore Nearby Places** — Google Places dynamically returns nearby attractions.
+9. **View Place Details** — Open a place to see additional information and Google Maps navigation.
+10. **Ask AURA AI** — Ask the Gemini-powered assistant questions about the destination.
+11. **Plan a Trip with AI** — Select duration, interests, and travel style to generate a personalized day-by-day itinerary.
 
 ---
 
 ## 📸 Screenshots
 
-<!-- Screenshot: Home / Hero will be added before final submission -->
-<!-- Screenshot: Destination Details will be added before final submission -->
-<!-- Screenshot: Location / Nearby Places will be added before final submission -->
-<!-- Screenshot: AURA AI Chatbot will be added before final submission -->
-<!-- Screenshot: AI Itinerary Planner will be added before final submission -->
-<!-- Screenshot: Mobile responsive view will be added before final submission -->
+### 🏠 Home / Hero
+
+<img width="1917" height="1078" alt="AURA Journeys Home Hero" src="https://github.com/user-attachments/assets/b7ea5264-5627-4e2b-9c1d-51a70b00b7b9" />
+
+### 🌍 Destination Details
+
+<img width="1917" height="1078" alt="AURA Journeys Destination Details" src="https://github.com/user-attachments/assets/5b0c94cd-3cce-45a1-bdd3-445ac7674d41" />
+
+### 📍 Location & Nearby Places
+
+<img width="1917" height="1078" alt="AURA Journeys Location and Nearby Places" src="https://github.com/user-attachments/assets/c51fc17b-8f9e-4b5f-9e9e-666b129ab87d" />
+
+### 🤖 AURA AI Chatbot
+
+<img width="1917" height="1078" alt="AURA Journeys AI Chatbot" src="https://github.com/user-attachments/assets/c646fb1c-6214-41cd-8d78-67c20c58694a" />
+
+### 🗺️ AI Itinerary Planner
+
+<img width="1135" height="942" alt="AURA Journeys AI Itinerary Planner" src="https://github.com/user-attachments/assets/332c026b-4be5-449d-b646-729d5c90f8e8" />
 
 ---
 
 ## 🔐 Environment Variables
 
-The application reads external API keys via Vite environment variables. Create a `.env` file in the root directory:
+The application uses environment variables for API configuration.
+
+Create a `.env` file in the project root:
 
 ```env
 VITE_OPENWEATHER_API_KEY=
 VITE_PEXELS_API_KEY=
 VITE_GOOGLE_PLACES_API_KEY=
 VITE_GEMINI_API_KEY=
-```
-
-> **Security Note**: Environment variables are protected from source control via `.gitignore`. Never commit API secret values.
-
----
-
-## 🚀 Getting Started
-
-### 1. Clone & Install
-```bash
-git clone https://github.com/Dheekshith001/aura-journeys.git
-cd aura-journeys
-npm install
-```
-
-### 2. Configure Environment Variables
-Create a `.env` file and add your credentials:
-```env
-VITE_OPENWEATHER_API_KEY=your_openweather_key
-VITE_PEXELS_API_KEY=your_pexels_key
-VITE_GOOGLE_PLACES_API_KEY=your_google_places_key
-VITE_GEMINI_API_KEY=your_gemini_key
-```
-
-### 3. Run Application
-```bash
-npm run dev
-```
-
----
-
-## 📜 License
-
-Crafted for the **AURA Journeys** Front-End Developer assignment submission.  
-© 2026 AURA Travel Technologies Inc. All rights reserved.
