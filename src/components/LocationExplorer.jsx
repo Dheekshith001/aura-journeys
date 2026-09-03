@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { MapPin, Navigation, Search, Loader2, Sparkles, Compass, CheckCircle2, AlertCircle, ArrowRight, Star } from 'lucide-react';
+import { MapPin, Navigation, Search, Loader2, Sparkles, Compass, CheckCircle2, AlertCircle, ArrowRight, Star, X } from 'lucide-react';
 import { searchNearbyPlaces, searchPlacesByCity } from '../services/googlePlacesService';
 import PlaceDetailsModal from './PlaceDetailsModal';
 import { usePexelsImage } from '../hooks/usePexelsImage';
@@ -52,12 +52,21 @@ function NearbyExplorerCard({ item, onExplore }) {
   );
 }
 
-export default function LocationExplorer() {
+export default function LocationExplorer({ onSearchStateChange }) {
   const [cityInput, setCityInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [locationStatus, setLocationStatus] = useState(null); // { type: 'success' | 'error', message: string }
   const [nearbyPlaces, setNearbyPlaces] = useState([]);
   const [selectedPlace, setSelectedPlace] = useState(null);
+
+  const handleClearLocationSearch = () => {
+    setNearbyPlaces([]);
+    setLocationStatus(null);
+    setCityInput('');
+    if (onSearchStateChange) {
+      onSearchStateChange(false);
+    }
+  };
 
   const handleUseMyLocation = () => {
     if (!navigator.geolocation) {
@@ -82,6 +91,9 @@ export default function LocationExplorer() {
         try {
           const results = await searchNearbyPlaces(latitude, longitude);
           setNearbyPlaces(results);
+          if (onSearchStateChange) {
+            onSearchStateChange(results.length > 0);
+          }
           setLocationStatus({
             type: 'success',
             message: `Found ${results.length} nearby attractions for your current location!`
@@ -116,6 +128,9 @@ export default function LocationExplorer() {
     try {
       const res = await searchPlacesByCity(cityInput.trim());
       setNearbyPlaces(res.places);
+      if (onSearchStateChange) {
+        onSearchStateChange(res.places.length > 0);
+      }
       setLocationStatus({
         type: 'success',
         message: `Showing ${res.places.length} attractions near "${res.locationName}"`
@@ -216,7 +231,17 @@ export default function LocationExplorer() {
                 <Sparkles size={18} className="icon-gold" />
                 <span>Search Recommendations</span>
               </h3>
-              <span className="results-count">{nearbyPlaces.length} places found</span>
+              <div className="results-header-actions">
+                <span className="results-count">{nearbyPlaces.length} places found</span>
+                <button
+                  type="button"
+                  onClick={handleClearLocationSearch}
+                  className="btn-clear-location-search"
+                >
+                  <X size={14} />
+                  <span>Clear & Show Popular Places</span>
+                </button>
+              </div>
             </div>
 
             <div className="nearby-grid">

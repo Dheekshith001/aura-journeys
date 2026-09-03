@@ -13,6 +13,7 @@ import './App.css';
 function Home() {
   const [searchTerm, setSearchTerm] = useState('');
   const [isPlannerOpen, setIsPlannerOpen] = useState(false);
+  const [hasLocationSearch, setHasLocationSearch] = useState(false);
 
   const handleSearch = (term) => {
     setSearchTerm(term);
@@ -42,10 +43,10 @@ function Home() {
       <FeaturedDestinations searchTerm={searchTerm} onClearSearch={handleClearSearch} setSearchTerm={setSearchTerm} />
 
       {/* 4. Explore by Location */}
-      <LocationExplorer />
+      <LocationExplorer onSearchStateChange={setHasLocationSearch} />
 
-      {/* 5. Popular Places */}
-      <PopularPlaces />
+      {/* 5. Popular Places (Only shown when there is no active location search) */}
+      {!hasLocationSearch && <PopularPlaces />}
 
       {/* 6. AI Planner Component */}
       <AIPlanner

@@ -224,6 +224,33 @@
   color: var(--text-muted);
 }
 
+.results-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.btn-clear-location-search {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--glass-border);
+  color: var(--text-muted);
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.btn-clear-location-search:hover {
+  background: rgba(223, 177, 112, 0.15);
+  color: var(--accent-gold);
+  border-color: rgba(223, 177, 112, 0.35);
+}
+
 .nearby-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
